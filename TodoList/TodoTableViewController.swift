@@ -16,13 +16,19 @@ class TodoTableViewCell: UITableViewCell {
     
     @IBAction func taskIsCompletedSwitchButton(_ sender: UISwitch) {
     
+        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: (todoTaskName?.text)!)
+       
         if todoTaskSwitchButton.isOn {
-         
-            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "Your Text")
-                attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
-                todoTaskName.attributedText = attributeString
+            
+            attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
+            todoTaskName.attributedText = attributeString
+            todoTaskStatus?.text = "Completed"
+           
         }else{
-                todoTaskName.attributedText = nil
+            
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+            todoTaskName.attributedText = attributeString
+            todoTaskStatus?.text = "Overdue"
         }
     
     }
@@ -57,6 +63,20 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoTableCell", for: indexPath) as! TodoTableViewCell
         cell.todoTaskName?.text = taskNameArray[indexPath.row]
         cell.todoTaskStatus?.text = "Completed"
+        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: (cell.todoTaskName?.text)!)
+       
+        if (cell.todoTaskSwitchButton.isOn) {
+        
+            attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
+            cell.todoTaskName.attributedText = attributeString
+            cell.todoTaskStatus?.text = "Completed"
+        }else{
+            
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+            cell.todoTaskName.attributedText = attributeString
+            cell.todoTaskStatus?.text = "Overdue"
+           
+        }
         //cell.accessoryView = UISwitch()
         //cell.todoTaskEdit.image = UIImage(named: "imgCat")
         return cell
