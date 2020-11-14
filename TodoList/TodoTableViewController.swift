@@ -13,24 +13,19 @@ class TodoTableViewCell: UITableViewCell {
     @IBOutlet var todoTaskStatus: UILabel!
     @IBOutlet var todoTaskSwitchButton: UISwitch!
     
-    
     @IBAction func taskIsCompletedSwitchButton(_ sender: UISwitch) {
     
         let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: (todoTaskName?.text)!)
-       
+    
         if todoTaskSwitchButton.isOn {
-            
             attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
             todoTaskName.attributedText = attributeString
             todoTaskStatus?.text = "Overdue"
-           
         }else{
-            
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
             todoTaskName.attributedText = attributeString
             todoTaskStatus?.text = "Completed"
         }
-    
     }
 }
 
@@ -48,24 +43,15 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         self.todoTable.rowHeight = 60.0
         self.title = "Todo"
     }
-   
-    
-    // MARK: - Table view data source
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taskNameArray.count
     }
     
-
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // #warning Incomplete implementation, return the number of rows
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoTableCell", for: indexPath) as! TodoTableViewCell
         cell.todoTaskName?.text = taskNameArray[indexPath.row]
         cell.todoTaskStatus?.text = taskStatus[indexPath.row]
         return cell
-
     }
-
 }
