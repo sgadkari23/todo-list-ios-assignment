@@ -7,6 +7,27 @@
 
 import UIKit
 
+class TodoTableViewCell: UITableViewCell {
+
+    @IBOutlet var todoTaskName: UILabel!
+    @IBOutlet var todoTaskStatus: UILabel!
+    @IBOutlet var todoTaskSwitchButton: UISwitch!
+    
+    
+    @IBAction func taskIsCompletedSwitchButton(_ sender: UISwitch) {
+    
+        if todoTaskSwitchButton.isOn {
+         
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "Your Text")
+                attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+                todoTaskName.attributedText = attributeString
+        }else{
+                todoTaskName.attributedText = nil
+        }
+    
+    }
+}
+
 class TodoTableViewController:  UIViewController, UITableViewDataSource, UITableViewDelegate {
  
     @IBOutlet var todoTable: UITableView!
@@ -20,13 +41,7 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         self.todoTable.rowHeight = 60.0
     }
     
-    
-    @IBAction func taskIsCompletedSwitchButton(_ sender: UISwitch) {
-        
-        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "Your Text")
-            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
-    //todoTaskName.attributedText = attributeString
-    }
+   
     
     // MARK: - Table view data source
 
@@ -44,20 +59,6 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         cell.todoTaskStatus?.text = "Completed"
         //cell.accessoryView = UISwitch()
         //cell.todoTaskEdit.image = UIImage(named: "imgCat")
-        
-        if cell.todoTaskSwitchButton.isOn {
-            //cell.todoTaskName.text = attributeString
-            print("ON")
-            //let attrString = NSAttributedString(string: "Label Text", attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle])
-            //label.attributedText = attrString
-            //let attrString = NSAttributedString(string: "Label Text", attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue])
-            
-            cell.todoTaskStatus.text = "Completed"
-            //stateSwitch.setOn(true, animated:true)
-        }
-        else{
-            print("OFF")
-        }
         return cell
 
     }

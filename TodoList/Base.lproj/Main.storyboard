@@ -28,7 +28,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z8a-SM-2k8">
-                                                    <rect key="frame" x="26" y="11.5" width="47" height="31.5"/>
+                                                    <rect key="frame" x="26" y="12" width="197" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="MyanmarSangamMN-Bold" family="Myanmar Sangam MN" pointSize="20"/>
                                                     <color key="textColor" red="0.49019607843137253" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -38,7 +38,7 @@
                                                     <rect key="frame" x="297" y="14" width="51" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <connections>
-                                                        <action selector="taskIsCompletedSwitchButton:" destination="BYZ-38-t0r" eventType="valueChanged" id="Sqc-N7-fl1"/>
+                                                        <action selector="taskIsCompletedSwitchButton:" destination="Ito-6M-68s" eventType="valueChanged" id="fF1-fh-I4U"/>
                                                     </connections>
                                                 </switch>
                                                 <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELV-bU-15S">
@@ -54,7 +54,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Overdue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ND-e6-Efy">
-                                                    <rect key="frame" x="26" y="33" width="95" height="22"/>
+                                                    <rect key="frame" x="26" y="33" width="142" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="MyanmarSangamMN" family="Myanmar Sangam MN" pointSize="14"/>
                                                     <color key="textColor" red="0.49019607840000001" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -64,9 +64,9 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.94509803921568625" green="0.81960784313725488" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <outlet property="todoTaskName" destination="Z8a-SM-2k8" id="7Gi-jj-yCu"/>
-                                            <outlet property="todoTaskStatus" destination="4ND-e6-Efy" id="tEh-6e-EI8"/>
-                                            <outlet property="todoTaskSwitchButton" destination="zzu-MT-tVE" id="37y-EQ-N7d"/>
+                                            <outlet property="todoTaskName" destination="Z8a-SM-2k8" id="mKs-04-CSh"/>
+                                            <outlet property="todoTaskStatus" destination="4ND-e6-Efy" id="GWj-oF-Zm4"/>
+                                            <outlet property="todoTaskSwitchButton" destination="zzu-MT-tVE" id="TtE-XW-Q8E"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
