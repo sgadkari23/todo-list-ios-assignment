@@ -4,15 +4,17 @@
 //  Student id: 301140872
 //
 
-
 import UIKit
 
+//table cell class to manage table row content
 class TodoTableViewCell: UITableViewCell {
 
+    //variable declaration
     @IBOutlet var todoTaskName: UILabel!
     @IBOutlet var todoTaskStatus: UILabel!
     @IBOutlet var todoTaskSwitchButton: UISwitch!
     
+    //strike task name if completed
     @IBAction func taskIsCompletedSwitchButton(_ sender: UISwitch) {
     
         let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: (todoTaskName?.text)!)
@@ -29,13 +31,17 @@ class TodoTableViewCell: UITableViewCell {
     }
 }
 
+//
 class TodoTableViewController:  UIViewController, UITableViewDataSource, UITableViewDelegate {
- 
+    
+    //variable declaration
     @IBOutlet var todoTable: UITableView!
     
+    //declaration of array
     var taskNameArray = ["Shopping List","Grocery List","Travel checklist"]
     var taskStatus = ["Overdue","Overdue","Friday November 14,2020"]
     
+    //load view
     override func viewDidLoad() {
         super.viewDidLoad()
         todoTable.delegate = self
@@ -43,7 +49,8 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         self.todoTable.rowHeight = 60.0
         self.title = "Todo"
     }
-
+    
+    //table view funcation
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taskNameArray.count
     }

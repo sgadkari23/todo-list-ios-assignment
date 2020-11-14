@@ -6,11 +6,10 @@
 //
 
 import UIKit
-
+//todo edit form class
 class TodoEditTaskViewController: UIViewController {
-
+    //view load
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-  
 }
