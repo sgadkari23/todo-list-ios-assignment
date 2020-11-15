@@ -1,8 +1,9 @@
 //  todoTableViewCell.swift
-//  Assignment:Todo App
+//  Assignment:	Todo App
 //  Name: Supriya Gadkari
 //  Student id: 301140872
-//
+//  Date: 11/14/2020
+//  Description: Listing all todo tasks
 
 import UIKit
 
@@ -31,7 +32,7 @@ class TodoTableViewCell: UITableViewCell {
     }
 }
 
-//
+// display table view
 class TodoTableViewController:  UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //variable declaration
@@ -50,11 +51,11 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         self.title = "Todo"
     }
     
-    //table view funcation
+    //Tells the data source to return the number of rows in a given section of a table view.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taskNameArray.count
     }
-    
+    //data source for a cell to insert in a particular location of the table view.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoTableCell", for: indexPath) as! TodoTableViewCell
         cell.todoTaskName?.text = taskNameArray[indexPath.row]
