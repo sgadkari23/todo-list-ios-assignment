@@ -6,11 +6,37 @@
 //
 
 import Foundation
+import Firebase
+
 class TodoTask: NSObject {
-    var name :String? = nil
-    var taskDescription: String? = nil
-    var dueDate: String? = nil
-    var uniqueId:String? = nil
-    var isCompleted: String? = "true"
-    var hasDueDate:String? = "true"
+    var name :String
+    var taskDescription: String
+    var hasDueDate:String = "true"
+    var dueDate: String
+    var uniqueId:String
+    var isCompleted: String = "true"
+    
+    
+    init( name: String, taskDescription: String, hasDueDate: String, dueDate: String, uniqueId: String, isCompleted: String) {
+            self.name = name
+            self.taskDescription = taskDescription
+            self.hasDueDate = hasDueDate
+            self.dueDate = dueDate
+            self.uniqueId = uniqueId
+            self.isCompleted = isCompleted
+    }
+
+    init(key: String, todo: NSDictionary) {
+        //let todoObject = snapshot.value as? NSDictionary
+        self.name = todo["name"] as! String
+        self.taskDescription = todo["description"] as! String
+        self.hasDueDate = todo["hasDueDate"] as! String
+        self.dueDate = todo["dueDate"] as! String
+        self.uniqueId = key
+        self.isCompleted = todo["isCompleted"] as! String
+    }
+
+    convenience override init() {
+        self.init(name: "", taskDescription: "", hasDueDate: "", dueDate: "", uniqueId: "", isCompleted: "")
+    }
 }
