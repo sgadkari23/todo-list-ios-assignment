@@ -177,6 +177,9 @@
                                 <state key="normal" backgroundImage="pencil.slash" catalog="system">
                                     <color key="titleColor" red="0.49019607840000001" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="editTodoTaskOnButtonPressed:" destination="4b6-Vx-MgI" eventType="touchUpInside" id="tWS-Dh-yFZ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtF-Cw-4YM">
                                 <rect key="frame" x="332" y="771" width="46" height="33"/>

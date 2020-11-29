@@ -61,9 +61,14 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         
         // get firebase database reference
         ref = Database.database().reference()
+        getDataFromFirebase()
+    }   
+    
+    func getDataFromFirebase(){
         
         ref.child("todoList").observe(DataEventType.value, with: { (snapshot) in
             if let postDict = snapshot.value as? Dictionary<String, AnyObject> {
+                self.allTodos = [TodoTask]()
                 for item in postDict {
                     //print("Type \(type(of:item))")
                     print(item)
@@ -74,6 +79,13 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
                 }
             }
         })
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+      //  self.todoTable.reloadData()
+        getDataFromFirebase()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){

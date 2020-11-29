@@ -66,7 +66,7 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
                     print("Ok button tapped")
                 //self.deleteArtist(id: "MNKrDgplRGDVVqBxxEg")
-            self.ref.child("todoList").child("-MNKrDgplRGDVVqBxxEg").removeValue()
+            self.ref.child("todoList").child(self.todoTaskDetails.uniqueId).removeValue()
             
             self.navigationController?.popToRootViewController(animated: true)
         })
@@ -81,16 +81,13 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
 
        // print(dialogMessage )
     }
+
     
-   /* func deleteArtist(id:String){
+    @IBAction func editTodoTaskOnButtonPressed(_ sender: Any) {
         
-        print("DELETE TASK ")
-        print("ID \(id)")
-        ref.child("todoList").child(id).removeValue()
-            //displaying message
-           // labelMessage.text = "Artist Deleted"
-        }
-*/
+        self.ref.child("todoList").child(self.todoTaskDetails.uniqueId).removeValue()
+        
+    }
     
     func customInit(todo:TodoTask) {
         self.todoTaskDetails = todo
