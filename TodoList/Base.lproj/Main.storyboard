@@ -57,7 +57,8 @@
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="4b6-Vx-MgI" kind="show" id="cTs-Oy-qfT"/>
+                                                        <action selector="editTodoTask:" destination="KIj-de-MHf" eventType="touchUpInside" id="4tA-nd-gPQ"/>
+                                                        <segue destination="4b6-Vx-MgI" kind="show" identifier="editTaskDetail" id="cTs-Oy-qfT"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -84,7 +85,7 @@
                     <navigationItem key="navigationItem" id="zwz-O2-dY5">
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="aZM-Jk-cu7">
                             <connections>
-                                <segue destination="4b6-Vx-MgI" kind="show" id="I7i-Am-bXd"/>
+                                <segue destination="4b6-Vx-MgI" kind="show" identifier="addTaskDetails" id="I7i-Am-bXd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -93,13 +94,14 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="KIj-de-MHf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="923.1884057971015" y="87.723214285714278"/>
         </scene>
         <!--Item-->
         <scene sceneID="wLY-io-i3I">
             <objects>
-                <viewController id="4b6-Vx-MgI" customClass="TodoEditTaskViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="view" id="4b6-Vx-MgI" customClass="TodoEditTaskViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Z8g-Gb-fi2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -132,7 +134,7 @@
                                 <color key="textColor" red="0.49019607840000001" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Shopping List" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AMN-HX-oJO">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AMN-HX-oJO">
                                 <rect key="frame" x="158" y="153" width="220" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.98039215690000003" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -144,7 +146,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.98039215686274506" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" systemColor="labelColor"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

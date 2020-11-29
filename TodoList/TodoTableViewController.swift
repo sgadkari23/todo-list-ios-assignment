@@ -16,6 +16,9 @@ class TodoTableViewCell: UITableViewCell {
     @IBOutlet var todoTaskStatus: UILabel!
     @IBOutlet var todoTaskSwitchButton: UISwitch!
     
+   
+    
+   
     //strike task name if completed
     @IBAction func taskIsCompletedSwitchButton(_ sender: UISwitch) {
     
@@ -42,6 +45,9 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
     //variable declaration
     @IBOutlet var todoTable: UITableView!
     var allTodos = [TodoTask]()
+    var todo:TodoTask!
+    
+    @IBOutlet var editTodoTaskButton: UIButton!
     
     //load view
     override func viewDidLoad() {
@@ -51,6 +57,7 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         todoTable.dataSource = self
         self.todoTable.rowHeight = 60.0
         self.title = "Todo"
+        
         
         // get firebase database reference
         ref = Database.database().reference()
@@ -68,19 +75,47 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         })
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if segue.destination is TodoEditTaskViewController
+        {
+            let vc = segue.destination as? TodoEditTaskViewController
+            if segue.identifier == "addTaskDetails" {
+                
+                vc?.editFlag = false
+                
+            }else if segue.identifier == "editTaskDetail" {
+                
+                vc?.editFlag = true
+                vc?.todoTaskDetails = todo
+            }
+            
+            ///let vc = segue.destination as? TodoEditTaskViewController
+            //vc?.username = "Arthur Dent"
+        }
+    }
+    
     //Tells the data source to return the number of rows in a given section of a table view.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.taskCount!
     }
     
-    
     //data source for a cell to insert in a particular location of the table view.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoTableCell", for: indexPath) as! TodoTableViewCell
-        let todo = allTodos[indexPath.row]
+        todo = allTodos[indexPath.row]
         cell.todoTaskName?.text = todo.name
         cell.todoTaskStatus?.text = todo.dueDate
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let subMenuVC = storyboard?.instantiateViewController(identifier: "view") as? TodoEditTaskViewController
+        let todo = allTodos[indexPath.row]
+        subMenuVC?.todoTaskDetails = todo
+      //  subMenuVC?.customInit(todo: todo)
+        self.navigationController?.pushViewController(subMenuVC!, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }
 
