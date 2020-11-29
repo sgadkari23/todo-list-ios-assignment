@@ -85,8 +85,23 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
     
     @IBAction func editTodoTaskOnButtonPressed(_ sender: Any) {
         
-        self.ref.child("todoList").child(self.todoTaskDetails.uniqueId).removeValue()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        todoTaskDetails.dueDate = dateFormatter.string(from: todoTaskDatePicker.date)
+        todoTaskDetails.name = todoTaskNameTextField.text!
+        todoTaskDetails.taskDescription = todoTaskDescriptionTextView.text!
         
+        let key = todoTaskDetails.uniqueId
+        
+        let dictionaryTodo = [ "name"        : todoTaskDetails.name,
+                               "description" : todoTaskDetails.taskDescription ,
+                               "dueDate"     : todoTaskDetails.dueDate,
+                               "hasDueDate"  : todoTaskDetails.hasDueDate,
+                               "isCompleted" : todoTaskDetails.isCompleted
+                               ]
+        
+        ref.child("todoList").child(key).updateChildValues(dictionaryTodo)
+        navigationController?.popToRootViewController(animated: true)
     }
     
     func customInit(todo:TodoTask) {
