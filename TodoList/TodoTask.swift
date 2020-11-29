@@ -1,20 +1,20 @@
 //
-//  TodoTask.swift
-//  TodoList
-//
-//  Created by Supriya Gadkari on 11/26/20.
-//
+//  todoTableViewCell.swift
+//  Assignment:Todo App
+//  Name: Supriya Gadkari
+//  Student id: 301140872
+//  Date: 11/14/2020
+//  Description: Loading todo detail form
 
 import Foundation
-import Firebase
 
 class TodoTask: NSObject {
     var name :String
     var taskDescription: String
-    var hasDueDate:String = "true"
+    var hasDueDate:String
     var dueDate: String
     var uniqueId:String
-    var isCompleted: String = "true"
+    var isCompleted: String
     
     
     init( name: String, taskDescription: String, hasDueDate: String, dueDate: String, uniqueId: String, isCompleted: String) {
@@ -37,6 +37,6 @@ class TodoTask: NSObject {
     }
 
     convenience override init() {
-        self.init(name: "", taskDescription: "", hasDueDate: "", dueDate: "", uniqueId: "", isCompleted: "")
+        self.init(name: "", taskDescription: "", hasDueDate: "true", dueDate: "", uniqueId: "", isCompleted: "true")
     }
 }

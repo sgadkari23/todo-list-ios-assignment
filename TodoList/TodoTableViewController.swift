@@ -66,6 +66,7 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
             if let postDict = snapshot.value as? Dictionary<String, AnyObject> {
                 for item in postDict {
                     //print("Type \(type(of:item))")
+                    print(item)
                     let myTodo = TodoTask(key: item.key, todo: item.value as! NSDictionary)
                     self.allTodos.append(myTodo)
                     self.taskCount = Int(postDict.count)
@@ -112,7 +113,7 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         let subMenuVC = storyboard?.instantiateViewController(identifier: "view") as? TodoEditTaskViewController
         let todo = allTodos[indexPath.row]
         subMenuVC?.todoTaskDetails = todo
-      //  subMenuVC?.customInit(todo: todo)
+        subMenuVC?.editFlag = true
         self.navigationController?.pushViewController(subMenuVC!, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }

@@ -5,6 +5,7 @@
 //  Student id: 301140872
 //  Date: 11/14/2020
 //  Description: Loading todo detail form
+
 import UIKit
 import  Firebase
 
@@ -28,6 +29,10 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
         super.viewDidLoad()
         ref = Database.database().reference()
         
+        if !editFlag {
+           todoTaskDetails = TodoTask()
+        }
+        
         todoTaskNameTextField.text = todoTaskDetails.name
         todoTaskDescriptionTextView.text = todoTaskDetails.taskDescription
         print(todoTaskDetails.isCompleted)
@@ -35,21 +40,57 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
         if(todoTaskDetails.isCompleted == "true"){
             todoTaskIsCompletedSwitchbutton.setOn(true, animated: true)
         }else{
-            todoTaskIsCompletedSwitchbutton.setOn(false, animated: false)
+            todoTaskIsCompletedSwitchbutton.setOn(false, animated: true)
+            //todoTaskIsCompletedSwitchbutton.onTintColor = .clear
         }
         
         if(todoTaskDetails.hasDueDate == "true"){
-            todoTaskIsCompletedSwitchbutton.setOn(true, animated: true)
+            todoTaskHasDueDateSwitchButton.setOn(true, animated: true)
         }else{
-            todoTaskIsCompletedSwitchbutton.setOn(false, animated: false)
+            todoTaskHasDueDateSwitchButton.setOn(false, animated: true)
+           // todoTaskHasDueDateSwitchButton.onTintColor = .clear
         }
-        
-        todoTaskDatePicker.date = todoTaskDetails.dueDate
-        //todo = TodoTask()f
-        //self.todoTaskNameTextField.delegate = self
-        //self.todoTaskDescriptionTextView.delegate = self
-        //todoTaskNameTextField.text
+       // let date = formater.date(from: todoTaskDatePicker.date ) ?? Date()
+        let formater = DateFormatter()
+        formater.dateFormat = "MM/dd/yyyy"
+        let date = formater.date(from: todoTaskDetails.dueDate) ?? Date()
+        todoTaskDatePicker.setDate(date, animated: true)
     }
+    
+    
+    @IBAction func todoTaskDeleteOnButtonPressed(_ sender: UIButton) {
+        
+        let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this?", preferredStyle: .alert)
+        
+        
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                    print("Ok button tapped")
+                //self.deleteArtist(id: "MNKrDgplRGDVVqBxxEg")
+            self.ref.child("todoList").child("-MNKrDgplRGDVVqBxxEg").removeValue()
+            
+            self.navigationController?.popToRootViewController(animated: true)
+        })
+
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+                    print("Cancel button tapped")
+                }
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        self.present(dialogMessage, animated: true, completion: nil)
+
+       // print(dialogMessage )
+    }
+    
+   /* func deleteArtist(id:String){
+        
+        print("DELETE TASK ")
+        print("ID \(id)")
+        ref.child("todoList").child(id).removeValue()
+            //displaying message
+           // labelMessage.text = "Artist Deleted"
+        }
+*/
     
     func customInit(todo:TodoTask) {
         self.todoTaskDetails = todo
@@ -92,7 +133,7 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
     @IBAction func saveTaskOnButtonPressed(_ sender: Any) {
     
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         todoTaskDetails.dueDate = dateFormatter.string(from: todoTaskDatePicker.date)
         todoTaskDetails.name = todoTaskNameTextField.text!
         todoTaskDetails.taskDescription = todoTaskDescriptionTextView.text!
