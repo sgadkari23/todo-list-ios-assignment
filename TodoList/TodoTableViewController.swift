@@ -67,13 +67,11 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
             if let postDict = snapshot.value as? Dictionary<String, AnyObject> {
                 self.allTodos = [TodoTask]()
                 for item in postDict {
-                    //print("Type \(type(of:item))")
-                    print(item)
                     let myTodo = TodoTask(key: item.key, todo: item.value as! NSDictionary)
                     self.allTodos.append(myTodo)
-                    self.taskCount = Int(postDict.count)
                     self.todoTable.reloadData()
                 }
+                self.taskCount = Int(postDict.count)
             }
         })
     }
@@ -81,7 +79,7 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-      //  self.todoTable.reloadData()
+        //self.todoTable.reloadData()
         getDataFromFirebase()
     }
     
@@ -115,22 +113,21 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         todo = allTodos[indexPath.row]
         cell.todoTaskName?.text = todo.name
         let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: (cell.todoTaskName?.text)!)
-        
-        if(todo.isCompleted == "true"){
-            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+    
+        if(todo.isCompleted == false){
+            attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
             cell.todoTaskSwitchButton.setOn(true, animated: true)
             cell.todoTaskName.attributedText = attributeString
-        }else{
-            attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
+        } else{
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
             cell.todoTaskSwitchButton.setOn(false, animated: false)
             cell.todoTaskName.attributedText = attributeString
         }
         
         cell.todoTaskStatus?.text = todo.dueDate
-       
+        
         return cell
     }
-    
     
     func strikeThroughText (_ text:String) -> NSAttributedString{
         let strokeEffect: [NSAttributedString.Key : Any] =
@@ -151,6 +148,4 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         self.navigationController?.pushViewController(subMenuVC!, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
 }
-

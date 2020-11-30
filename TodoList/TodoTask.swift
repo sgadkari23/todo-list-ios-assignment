@@ -11,13 +11,13 @@ import Foundation
 class TodoTask: NSObject {
     var name :String
     var taskDescription: String
-    var hasDueDate:String
+    var hasDueDate:Bool
     var dueDate: String
     var uniqueId:String
-    var isCompleted: String
+    var isCompleted: Bool
     
     
-    init( name: String, taskDescription: String, hasDueDate: String, dueDate: String, uniqueId: String, isCompleted: String) {
+    init( name: String, taskDescription: String, hasDueDate: Bool, dueDate: String, uniqueId: String, isCompleted: Bool) {
             self.name = name
             self.taskDescription = taskDescription
             self.hasDueDate = hasDueDate
@@ -30,13 +30,13 @@ class TodoTask: NSObject {
         //let todoObject = snapshot.value as? NSDictionary
         self.name = todo["name"] as! String
         self.taskDescription = todo["description"] as! String
-        self.hasDueDate = todo["hasDueDate"] as! String
+        self.hasDueDate = todo["hasDueDate"] as! Bool
         self.dueDate = todo["dueDate"] as! String
         self.uniqueId = key
-        self.isCompleted = todo["isCompleted"] as! String
+        self.isCompleted = todo["isCompleted"] as! Bool
     }
 
     convenience override init() {
-        self.init(name: "", taskDescription: "", hasDueDate: "true", dueDate: "", uniqueId: "", isCompleted: "true")
+        self.init(name: "", taskDescription: "", hasDueDate: false , dueDate: "", uniqueId: "", isCompleted: false)
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 import  Firebase
 
 //todo edit form class
-class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate  {
     
     var ref: DatabaseReference!
     var todoTaskDetails:TodoTask!
@@ -32,23 +32,31 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
         
         if !editFlag {
            todoTaskDetails = TodoTask()
+           enableEditButton.setBackgroundImage(UIImage(systemName: "plus"), for: .normal)
         }
         
         todoTaskNameTextField.text = todoTaskDetails.name
         todoTaskDescriptionTextView.text = todoTaskDetails.taskDescription
-        print(todoTaskDetails.isCompleted)
         
-        if(todoTaskDetails.isCompleted == "true"){
+        if todoTaskNameTextField.text == ""{
+            todoTaskHasDueDateSwitchButton.isHidden = true
+            todoTaskIsCompletedSwitchbutton.isHidden = true
+            enableEditButton.isHidden = true
+        }
+        //print(todoTaskDetails.isCompleted)
+        
+        if(todoTaskDetails.isCompleted == false){
             todoTaskIsCompletedSwitchbutton.setOn(true, animated: true)
         }else{
             todoTaskIsCompletedSwitchbutton.setOn(false, animated: true)
             //todoTaskIsCompletedSwitchbutton.onTintColor = .clear
         }
         
-        if(todoTaskDetails.hasDueDate == "true"){
+        if(todoTaskDetails.hasDueDate == true){
             todoTaskHasDueDateSwitchButton.setOn(true, animated: true)
         }else{
             todoTaskHasDueDateSwitchButton.setOn(false, animated: true)
+            todoTaskDatePicker.isEnabled = false
            // todoTaskHasDueDateSwitchButton.onTintColor = .clear
         }
        // let date = formater.date(from: todoTaskDatePicker.date ) ?? Date()
@@ -61,20 +69,18 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
-        safeGuard()
+        //safeGuard()
     }
-    func safeGuard() {
-        if todoTaskNameTextField.text == ""{
-            todoTaskHasDueDateSwitchButton.isHidden = true
-            todoTaskIsCompletedSwitchbutton.isHidden = true
-            enableEditButton.isHidden = true
-        } else {
+    
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.text != ""{
             todoTaskHasDueDateSwitchButton.isHidden = false
             todoTaskIsCompletedSwitchbutton.isHidden = false
             enableEditButton.isHidden = false
         }
     }
-    
 
     
     @IBAction func todoTaskDeleteOnButtonPressed(_ sender: UIButton) {
@@ -103,24 +109,33 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
 
     
     @IBAction func editTodoTaskOnButtonPressed(_ sender: Any) {
+      /*  if !editFlag {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            todoTaskDetails.dueDate = dateFormatter.string(from: todoTaskDatePicker.date)
+            todoTaskDetails.name = todoTaskNameTextField.text!
+            todoTaskDetails.taskDescription = todoTaskDescriptionTextView.text!
+            
+            let key = todoTaskDetails.uniqueId
+            
+            let dictionaryTodo = [ "name"        : todoTaskDetails.name,
+                                   "description" : todoTaskDetails.taskDescription ,
+                                   "dueDate"     : todoTaskDetails.dueDate,
+                                   "hasDueDate"  : todoTaskDetails.hasDueDate,
+                                   "isCompleted" : todoTaskDetails.isCompleted
+            ] as [String : Any]
+            
+            ref.child("todoList").child(key).updateChildValues(dictionaryTodo)
+            navigationController?.popToRootViewController(animated: true)
+        } */
+        todoTaskNameTextField.text = ""
+        todoTaskDescriptionTextView.text = ""
+        todoTaskHasDueDateSwitchButton.setOn(false, animated: true)
+        todoTaskDetails.hasDueDate = false
+        todoTaskDatePicker.isEnabled = false
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        todoTaskDetails.dueDate = dateFormatter.string(from: todoTaskDatePicker.date)
-        todoTaskDetails.name = todoTaskNameTextField.text!
-        todoTaskDetails.taskDescription = todoTaskDescriptionTextView.text!
-        
-        let key = todoTaskDetails.uniqueId
-        
-        let dictionaryTodo = [ "name"        : todoTaskDetails.name,
-                               "description" : todoTaskDetails.taskDescription ,
-                               "dueDate"     : todoTaskDetails.dueDate,
-                               "hasDueDate"  : todoTaskDetails.hasDueDate,
-                               "isCompleted" : todoTaskDetails.isCompleted
-                               ]
-        
-        ref.child("todoList").child(key).updateChildValues(dictionaryTodo)
-        navigationController?.popToRootViewController(animated: true)
+        todoTaskIsCompletedSwitchbutton.setOn(true, animated: true)
+        todoTaskDetails.isCompleted = false
     }
     
     func customInit(todo:TodoTask) {
@@ -143,51 +158,72 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
     @IBAction func changeHasDuedateOnSwitchIsON(_ sender: Any) {
         
         if (sender as AnyObject).isOn {
-            todoTaskDetails.hasDueDate = "true"
+            todoTaskDetails.hasDueDate = true
+            todoTaskDatePicker.isEnabled = true
         }else{
-            todoTaskDetails.hasDueDate = "false"
+            todoTaskDetails.hasDueDate = false
+            todoTaskDatePicker.isEnabled = false
         }
     }
     
     
     @IBAction func changeIsCompletedOnSwitchIsON(_ sender: Any) {
-        print("flag : \(String(describing: todoTaskDetails.isCompleted))")
+       // print("flag : \(String(describing: todoTaskDetails.isCompleted))")
         if (sender as AnyObject).isOn {
-            todoTaskDetails.isCompleted = "true"
+            todoTaskDetails.isCompleted = false
             
         }else{
-            todoTaskDetails.isCompleted = "false"
+            todoTaskDetails.isCompleted = true
         }
     }
     
     
     @IBAction func saveTaskOnButtonPressed(_ sender: Any) {
-    
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        todoTaskDetails.dueDate = dateFormatter.string(from: todoTaskDatePicker.date)
-        todoTaskDetails.name = todoTaskNameTextField.text!
-        todoTaskDetails.taskDescription = todoTaskDescriptionTextView.text!
-        
-     //   print("todo date selected :",todo.dueDate)
-        print("has due date :\(String(describing: todoTaskHasDueDateSwitchButton))")
-        
-        /*todo.name = "sample1"
-        todo.taskDescription = "d1"
-        todo.dueDate = "dateFormatter.stringFromDate()"*/
-        
-        //second section
-        let key = ref.child("todoList").childByAutoId().key
-        
-        let dictionaryTodo = [ "name"        : todoTaskDetails.name,
-                               "description" : todoTaskDetails.taskDescription ,
-                               "dueDate"     : todoTaskDetails.dueDate,
-                               "hasDueDate"  : todoTaskDetails.hasDueDate,
-                               "isCompleted" : todoTaskDetails.isCompleted
-                               ]
-        
-        ref.child("todoList").child(key ?? "k1").setValue(dictionaryTodo)
-        navigationController?.popToRootViewController(animated: true)
+        if !editFlag {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            todoTaskDetails.dueDate = dateFormatter.string(from: todoTaskDatePicker.date)
+            todoTaskDetails.name = todoTaskNameTextField.text!
+            todoTaskDetails.taskDescription = todoTaskDescriptionTextView.text!
+            
+         //   print("todo date selected :",todo.dueDate)
+            print("has due date :\(String(describing: todoTaskHasDueDateSwitchButton))")
+            
+            /*todo.name = "sample1"
+            todo.taskDescription = "d1"
+            todo.dueDate = "dateFormatter.stringFromDate()"*/
+            
+            //second section
+            let key = ref.child("todoList").childByAutoId().key
+            
+            let dictionaryTodo = [ "name"        : todoTaskDetails.name,
+                                   "description" : todoTaskDetails.taskDescription ,
+                                   "dueDate"     : todoTaskDetails.dueDate,
+                                   "hasDueDate"  : todoTaskDetails.hasDueDate,
+                                   "isCompleted" : todoTaskDetails.isCompleted
+            ] as [String : Any]
+            
+            ref.child("todoList").child(key ?? "k1").setValue(dictionaryTodo)
+            navigationController?.popToRootViewController(animated: true)
+        }else{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            todoTaskDetails.dueDate = dateFormatter.string(from: todoTaskDatePicker.date)
+            todoTaskDetails.name = todoTaskNameTextField.text!
+            todoTaskDetails.taskDescription = todoTaskDescriptionTextView.text!
+            
+            let key = todoTaskDetails.uniqueId
+            
+            let dictionaryTodo = [ "name"        : todoTaskDetails.name,
+                                   "description" : todoTaskDetails.taskDescription ,
+                                   "dueDate"     : todoTaskDetails.dueDate,
+                                   "hasDueDate"  : todoTaskDetails.hasDueDate,
+                                   "isCompleted" : todoTaskDetails.isCompleted
+            ] as [String : Any]
+            
+            ref.child("todoList").child(key).updateChildValues(dictionaryTodo)
+            navigationController?.popToRootViewController(animated: true)
+        }
         
     }
     
