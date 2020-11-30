@@ -128,14 +128,25 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
             ref.child("todoList").child(key).updateChildValues(dictionaryTodo)
             navigationController?.popToRootViewController(animated: true)
         } */
-        todoTaskNameTextField.text = ""
-        todoTaskDescriptionTextView.text = ""
-        todoTaskHasDueDateSwitchButton.setOn(false, animated: true)
-        todoTaskDetails.hasDueDate = false
-        todoTaskDatePicker.isEnabled = false
         
-        todoTaskIsCompletedSwitchbutton.setOn(true, animated: true)
-        todoTaskDetails.isCompleted = false
+        let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to discard the changes?", preferredStyle: .alert)
+        
+        
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                    print("Ok button tapped")
+                //self.deleteArtist(id: "MNKrDgplRGDVVqBxxEg")
+            
+            self.navigationController?.popToRootViewController(animated: true)
+        })
+
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            
+        }
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        self.present(dialogMessage, animated: true, completion: nil)
+        
     }
     
     func customInit(todo:TodoTask) {
@@ -206,23 +217,39 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
             ref.child("todoList").child(key ?? "k1").setValue(dictionaryTodo)
             navigationController?.popToRootViewController(animated: true)
         }else{
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            todoTaskDetails.dueDate = dateFormatter.string(from: todoTaskDatePicker.date)
-            todoTaskDetails.name = todoTaskNameTextField.text!
-            todoTaskDetails.taskDescription = todoTaskDescriptionTextView.text!
+            let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to discard the changes?", preferredStyle: .alert)
             
-            let key = todoTaskDetails.uniqueId
             
-            let dictionaryTodo = [ "name"        : todoTaskDetails.name,
-                                   "description" : todoTaskDetails.taskDescription ,
-                                   "dueDate"     : todoTaskDetails.dueDate,
-                                   "hasDueDate"  : todoTaskDetails.hasDueDate,
-                                   "isCompleted" : todoTaskDetails.isCompleted
-            ] as [String : Any]
+            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                        print("Ok button tapped")
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM/dd/yyyy"
+                self.todoTaskDetails.dueDate = dateFormatter.string(from: self.todoTaskDatePicker.date)
+                self.todoTaskDetails.name = self.todoTaskNameTextField.text!
+                self.todoTaskDetails.taskDescription = self.todoTaskDescriptionTextView.text!
+                
+                let key = self.todoTaskDetails.uniqueId
+                
+                let dictionaryTodo = [ "name"        : self.todoTaskDetails.name,
+                                       "description" : self.todoTaskDetails.taskDescription ,
+                                       "dueDate"     : self.todoTaskDetails.dueDate,
+                                       "hasDueDate"  : self.todoTaskDetails.hasDueDate,
+                                       "isCompleted" : self.todoTaskDetails.isCompleted
+                ] as [String : Any]
+                
+                self.ref.child("todoList").child(key).updateChildValues(dictionaryTodo)
+                
+                self.navigationController?.popToRootViewController(animated: true)
+            })
+
             
-            ref.child("todoList").child(key).updateChildValues(dictionaryTodo)
-            navigationController?.popToRootViewController(animated: true)
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+                
+            }
+            dialogMessage.addAction(ok)
+            dialogMessage.addAction(cancel)
+            self.present(dialogMessage, animated: true, completion: nil)
+            
         }
         
     }
