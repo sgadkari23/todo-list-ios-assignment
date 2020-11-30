@@ -1,13 +1,14 @@
 //
-//  todoTableViewCell.swift
+//  File name: todoTask.swift
 //  Assignment:Todo App
 //  Name: Supriya Gadkari
 //  Student id: 301140872
 //  Date: 11/14/2020
-//  Description: Loading todo detail form
+//  Description: Todo Model
+//
 
 import Foundation
-
+// todo method
 class TodoTask: NSObject {
     var name :String
     var taskDescription: String
@@ -27,7 +28,7 @@ class TodoTask: NSObject {
     }
 
     init(key: String, todo: NSDictionary) {
-        //let todoObject = snapshot.value as? NSDictionary
+       
         self.name = todo["name"] as! String
         self.taskDescription = todo["description"] as! String
         self.hasDueDate = todo["hasDueDate"] as! Bool

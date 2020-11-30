@@ -164,7 +164,7 @@
                                     <color key="titleColor" red="0.49019607840000001" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="editTodoTaskOnButtonPressed:" destination="4b6-Vx-MgI" eventType="touchUpInside" id="tWS-Dh-yFZ"/>
+                                    <action selector="resetTodoTaskOnButtonPressed:" destination="4b6-Vx-MgI" eventType="touchUpInside" id="7f2-C4-Bgl"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtF-Cw-4YM">
@@ -189,7 +189,7 @@
                                 <color key="tintColor" red="0.49019607840000001" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" backgroundImage="rectangle.and.pencil.and.ellipsis" catalog="system"/>
                                 <connections>
-                                    <action selector="saveTaskOnButtonPressed:" destination="4b6-Vx-MgI" eventType="touchUpInside" id="U9b-4P-wMb"/>
+                                    <action selector="addOrEditTaskOnButtonPressed:" destination="4b6-Vx-MgI" eventType="touchUpInside" id="Jr3-Ft-pTz"/>
                                 </connections>
                             </button>
                         </subviews>

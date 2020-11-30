@@ -1,4 +1,4 @@
-//  todoTableViewCell.swift
+//  File name : todoTableViewController.swift
 //  Assignment:	Todo App
 //  Name: Supriya Gadkari
 //  Student id: 301140872
@@ -16,22 +16,6 @@ class TodoTableViewCell: UITableViewCell {
     @IBOutlet var todoTaskStatus: UILabel!
     @IBOutlet var todoTaskSwitchButton: UISwitch!
     
-   
-    //strike task name if completed
-    @IBAction func taskIsCompletedSwitchButton(_ sender: UISwitch) {
-    
-        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: (todoTaskName?.text)!)
-    
-        if todoTaskSwitchButton.isOn {
-            attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
-            todoTaskName.attributedText = attributeString
-            todoTaskStatus?.text = "Overdue"
-        }else{
-            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
-            todoTaskName.attributedText = attributeString
-            todoTaskStatus?.text = "Completed"
-        }
-    }
 }
 
 // display table view
@@ -44,7 +28,6 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
     @IBOutlet var todoTable: UITableView!
     var allTodos = [TodoTask]()
     var todo:TodoTask!
-    
     
     //load view
     override func viewDidLoad() {
@@ -61,8 +44,8 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         getDataFromFirebase()
     }   
     
+    // fetech data from firebase database
     func getDataFromFirebase(){
-        
         ref.child("todoList").observe(DataEventType.value, with: { (snapshot) in
             if let postDict = snapshot.value as? Dictionary<String, AnyObject> {
                 self.allTodos = [TodoTask]()
@@ -76,13 +59,12 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         })
     }
     
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        //self.todoTable.reloadData()
         getDataFromFirebase()
     }
-    
+    // seguw for assign values of anther view controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.destination is TodoEditTaskViewController
         {
@@ -96,9 +78,6 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
                 vc?.editFlag = true
                 vc?.todoTaskDetails = todo
             }
-            
-            ///let vc = segue.destination as? TodoEditTaskViewController
-            //vc?.username = "Arthur Dent"
         }
     }
     
@@ -113,7 +92,7 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         todo = allTodos[indexPath.row]
         cell.todoTaskName?.text = todo.name
         let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: (cell.todoTaskName?.text)!)
-    
+        // strike task name on task completion
         if(todo.isCompleted == false){
             attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
             cell.todoTaskSwitchButton.setOn(true, animated: true)
@@ -124,7 +103,7 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
             cell.todoTaskName.attributedText = attributeString
         }
         
-        
+        // change color of date on over due
         let formater = DateFormatter()
         formater.dateFormat = "MM/dd/yyyy"
         let date = formater.date(from: todo.dueDate) ?? Date()
@@ -139,17 +118,6 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         
         cell.todoTaskSwitchButton.isEnabled = false
         return cell
-    }
-    
-    func strikeThroughText (_ text:String) -> NSAttributedString{
-        let strokeEffect: [NSAttributedString.Key : Any] =
-            [
-                NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                NSAttributedString.Key.strikethroughColor: (UIColor(red: 0.0, green: 1.0, blue: 1.0, alpha: 1.0))
-                ]
-
-        let attributeString = NSAttributedString(string: text, attributes: strokeEffect)
-        return attributeString
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
