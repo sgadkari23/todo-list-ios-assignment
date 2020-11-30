@@ -217,7 +217,7 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
             ref.child("todoList").child(key ?? "k1").setValue(dictionaryTodo)
             navigationController?.popToRootViewController(animated: true)
         }else{
-            let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to discard the changes?", preferredStyle: .alert)
+            let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to save the changes?", preferredStyle: .alert)
             
             
             let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in

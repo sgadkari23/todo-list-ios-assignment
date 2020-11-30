@@ -124,8 +124,20 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
             cell.todoTaskName.attributedText = attributeString
         }
         
+        
+        let formater = DateFormatter()
+        formater.dateFormat = "MM/dd/yyyy"
+        let date = formater.date(from: todo.dueDate) ?? Date()
+        let currentDate = Date()
+        if date < currentDate {
+            cell.todoTaskStatus?.textColor = UIColor.red
+        }
+        else {
+            cell.todoTaskStatus?.textColor = UIColor.black
+        }
         cell.todoTaskStatus?.text = todo.dueDate
         
+        cell.todoTaskSwitchButton.isEnabled = false
         return cell
     }
     
