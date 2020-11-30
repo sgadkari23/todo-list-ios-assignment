@@ -17,8 +17,6 @@ class TodoTableViewCell: UITableViewCell {
     @IBOutlet var todoTaskSwitchButton: UISwitch!
     
    
-    
-   
     //strike task name if completed
     @IBAction func taskIsCompletedSwitchButton(_ sender: UISwitch) {
     
@@ -47,7 +45,6 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
     var allTodos = [TodoTask]()
     var todo:TodoTask!
     
-    @IBOutlet var editTodoTaskButton: UIButton!
     
     //load view
     override func viewDidLoad() {
@@ -117,8 +114,33 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoTableCell", for: indexPath) as! TodoTableViewCell
         todo = allTodos[indexPath.row]
         cell.todoTaskName?.text = todo.name
+        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: (cell.todoTaskName?.text)!)
+        
+        if(todo.isCompleted == "true"){
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+            cell.todoTaskSwitchButton.setOn(true, animated: true)
+            cell.todoTaskName.attributedText = attributeString
+        }else{
+            attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
+            cell.todoTaskSwitchButton.setOn(false, animated: false)
+            cell.todoTaskName.attributedText = attributeString
+        }
+        
         cell.todoTaskStatus?.text = todo.dueDate
+       
         return cell
+    }
+    
+    
+    func strikeThroughText (_ text:String) -> NSAttributedString{
+        let strokeEffect: [NSAttributedString.Key : Any] =
+            [
+                NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue,
+                NSAttributedString.Key.strikethroughColor: (UIColor(red: 0.0, green: 1.0, blue: 1.0, alpha: 1.0))
+                ]
+
+        let attributeString = NSAttributedString(string: text, attributes: strokeEffect)
+        return attributeString
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

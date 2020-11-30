@@ -34,13 +34,6 @@
                                                     <color key="textColor" red="0.49019607843137253" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zzu-MT-tVE">
-                                                    <rect key="frame" x="285" y="13" width="51" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <connections>
-                                                        <action selector="taskIsCompletedSwitchButton:" destination="Ito-6M-68s" eventType="valueChanged" id="fF1-fh-I4U"/>
-                                                    </connections>
-                                                </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Overdue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ND-e6-Efy">
                                                     <rect key="frame" x="26" y="33" width="237" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -48,19 +41,10 @@
                                                     <color key="textColor" red="0.49019607840000001" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELV-bU-15S">
-                                                    <rect key="frame" x="342" y="13" width="40" height="32"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zzu-MT-tVE">
+                                                    <rect key="frame" x="325" y="20" width="51" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                                    <color key="tintColor" red="0.49019607840000001" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <state key="normal" backgroundImage="square.and.pencil" catalog="system">
-                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="editTodoTask:" destination="KIj-de-MHf" eventType="touchUpInside" id="4tA-nd-gPQ"/>
-                                                        <segue destination="4b6-Vx-MgI" kind="show" identifier="editTaskDetail" id="cTs-Oy-qfT"/>
-                                                    </connections>
-                                                </button>
+                                                </switch>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.94509803921568625" green="0.81960784313725488" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -94,7 +78,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <exit id="KIj-de-MHf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="923.1884057971015" y="87.723214285714278"/>
         </scene>
@@ -213,6 +196,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="hPk-uK-GOx"/>
                     <navigationItem key="navigationItem" id="ajg-QC-FG3"/>
                     <connections>
+                        <outlet property="enableEditButton" destination="zAp-y1-g6M" id="YZq-Cd-f32"/>
                         <outlet property="todoTaskDatePicker" destination="ycy-1d-I46" id="USN-BC-9Cp"/>
                         <outlet property="todoTaskDescriptionTextView" destination="9MV-aa-9hJ" id="39h-cX-8pM"/>
                         <outlet property="todoTaskHasDueDateSwitchButton" destination="uz0-61-FRh" id="fPd-HF-67d"/>
@@ -250,15 +234,11 @@
             <point key="canvasLocation" x="13.043478260869566" y="87.723214285714278"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="I7i-Am-bXd"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="bin.xmark" catalog="system" width="128" height="93"/>
         <image name="pencil.slash" catalog="system" width="128" height="113"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="rectangle.and.pencil.and.ellipsis" catalog="system" width="128" height="81"/>
-        <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

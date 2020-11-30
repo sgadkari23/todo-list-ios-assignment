@@ -23,6 +23,7 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
     @IBOutlet var todoTaskDatePicker: UIDatePicker!
     @IBOutlet var todoTaskIsCompletedSwitchbutton: UISwitch!
     
+    @IBOutlet var enableEditButton: UIButton!
     
     //view load
     override func viewDidLoad() {
@@ -57,6 +58,24 @@ class TodoEditTaskViewController: UIViewController, UITextFieldDelegate, UITextV
         todoTaskDatePicker.setDate(date, animated: true)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+
+        safeGuard()
+    }
+    func safeGuard() {
+        if todoTaskNameTextField.text == ""{
+            todoTaskHasDueDateSwitchButton.isHidden = true
+            todoTaskIsCompletedSwitchbutton.isHidden = true
+            enableEditButton.isHidden = true
+        } else {
+            todoTaskHasDueDateSwitchButton.isHidden = false
+            todoTaskIsCompletedSwitchbutton.isHidden = false
+            enableEditButton.isHidden = false
+        }
+    }
+    
+
     
     @IBAction func todoTaskDeleteOnButtonPressed(_ sender: UIButton) {
         
