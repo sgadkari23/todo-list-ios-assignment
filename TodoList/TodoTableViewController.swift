@@ -2,7 +2,7 @@
 //  Assignment:	Todo App
 //  Name: Supriya Gadkari
 //  Student id: 301140872
-//  Date: 11/14/2020
+//  Date: 12/06/2020
 //  Description: Listing all todo tasks
 
 import UIKit
@@ -113,7 +113,6 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
                                     "hasDueDate"  : self.todo.hasDueDate,
                                    "isCompleted" : isCompletedFlag
             ] as [String : Any]
-            
             self.ref.child("todoList").child(key).updateChildValues(dictionaryTodo)
             self.getDataFromFirebase()
             print("iscomplete")}
