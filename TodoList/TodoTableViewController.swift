@@ -90,6 +90,7 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
             subMenuVC?.editFlag = true
             self.navigationController?.pushViewController(subMenuVC!, animated: true)
             print("edit")}
+        edit.backgroundColor=UIColor.init(red: 0/255, green: 0/255, blue: 255/255, alpha: 1)
         return UISwipeActionsConfiguration(actions: [edit])
     }
     
