@@ -158,7 +158,7 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
             }
             cell.todoTaskStatus?.text = todo.dueDate
             
-            cell.todoTaskSwitchButton.isEnabled = false
+          //  cell.todoTaskSwitchButton.isEnabled = false
         return cell
     }
     
