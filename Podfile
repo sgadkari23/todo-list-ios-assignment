@@ -8,6 +8,8 @@ target 'TodoList' do
   # Pods for TodoList
   pod 'Firebase/Database'
   pod 'Firebase/Core'
+  pod 'SwipeCellKit'
+
 
   target 'TodoListTests' do
     inherit! :search_paths
