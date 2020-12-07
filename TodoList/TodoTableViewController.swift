@@ -137,11 +137,11 @@ class TodoTableViewController:  UIViewController, UITableViewDataSource, UITable
         // strike task name on task completion
         if(todo.isCompleted == false){
             attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributeString.length))
-            cell.todoTaskSwitchButton.setOn(true, animated: true)
+           // cell.todoTaskSwitchButton.setOn(true, animated: true)
             cell.todoTaskName.attributedText = attributeString
         } else{
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
-            cell.todoTaskSwitchButton.setOn(false, animated: false)
+           // cell.todoTaskSwitchButton.setOn(false, animated: false)
             cell.todoTaskName.attributedText = attributeString
         }
         
